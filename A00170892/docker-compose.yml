@@ -17,6 +17,9 @@ services:
 
   balanceador:
     build: haproxy/.
+    container_name: balanceador
+    labels:
+      - "SERVICE_NAME=Balanceador"
     ports:
       - "80:80"
     links:
@@ -25,10 +28,13 @@ services:
 
   web:
     build: web/.
+    labels:
+      - "SERVICE_NAME=ServicioWeb"
     ports:
       - "5000"
 
   redis:
     image: "redis:alpine"
+    container_name: redis
     ports:
       - "6379"

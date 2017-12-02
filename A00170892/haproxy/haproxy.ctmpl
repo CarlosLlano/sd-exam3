@@ -78,5 +78,5 @@ backend static
 # round robin balancing between the various backends
 #---------------------------------------------------------------------
 backend nodes
-    balance     roundrobin{{range service "05compose_web"}}
+    balance     roundrobin{{range service "ServicioWeb"}}
     server {{.ID}} {{.Address}}:{{.Port}}{{end}}
