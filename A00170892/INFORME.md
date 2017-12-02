@@ -67,7 +67,7 @@ Para almacenar y consultar esta informacion hace uso de un contenedor con la bas
 ***CONTENEDOR BALANCEADOR DE CARGA***
 
 **Funcion:** se encarga de redirigir las peticiones a cada uno de los servicios web. 
-En cuanto a la implementacion se decide por utilizar un contenedor con el sistema operativo centos y sobre este instalar haproxy
+En cuanto a la implementacion se decide utilizar un contenedor con el sistema operativo centos y sobre este instalar haproxy
 y consul-template. Este ultimo es necesario para actualizar el archivo de configuracion de haproxy dinamicamente.
 
 
@@ -200,10 +200,77 @@ ___
 
 ***4. Incluya evidencias que muestran el funcionamiento de lo solicitado.*** 
 
+***Inicio***
+```bash
+docker-compose up -d
+```
+
+![evidencia1](https://user-images.githubusercontent.com/17281733/33510701-503f3840-d6dd-11e7-9f50-ed70b4430198.png)
 
 
+![evidencia 2](https://user-images.githubusercontent.com/17281733/33510703-5999f628-d6dd-11e7-816b-4a9bbcb97f02.png)
+
+
+![evidencia 3](https://user-images.githubusercontent.com/17281733/33510705-60fdf9b4-d6dd-11e7-9387-3e30f75afb3c.png)
+
+Archivo haproxy.cfg
+
+´´´bash
+docker exec -it balanceador /bin/bash
+cat haproxy.cfg
+´´´
+
+![evidencia4](https://user-images.githubusercontent.com/17281733/33510714-a4b277ac-d6dd-11e7-8176-4628ce501797.png)
+
+
+***Escalar***
+
+```bash
+docker-compose scale web=2
+```
+
+![evidencia5](https://user-images.githubusercontent.com/17281733/33510742-00d65f58-d6de-11e7-95c4-cd51b0f1c940.png)
+
+
+![evidencia8](https://user-images.githubusercontent.com/17281733/33510762-46afcd66-d6de-11e7-9132-bcff60121577.png)
+
+
+![evidencia6](https://user-images.githubusercontent.com/17281733/33510765-4eb5d122-d6de-11e7-9a6f-36fccb8f6194.png)
+
+
+![evidencia7](https://user-images.githubusercontent.com/17281733/33510766-582dc548-d6de-11e7-8055-8f3c802a4f0a.png)
+
+
+Archivo de configuracion
+
+![evidencia9](https://user-images.githubusercontent.com/17281733/33510772-70eba294-d6de-11e7-892a-6e194ce061f7.png)
+
+
+```bash
+docker-compose scale web=5
+```
+
+![ezgif com-optimize](https://user-images.githubusercontent.com/17281733/33510901-216f99d0-d6e0-11e7-88cf-4b70a6fdd0a9.gif)
+
+
+```bash
+docker-compose scale web=2
+```
+
+![final](https://user-images.githubusercontent.com/17281733/33511016-edcbf446-d6e1-11e7-9675-8f1043fc1c41.gif)
 
 ___
 
 ***5. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución al aprovisionar
 la infraestructura y aplicaciones***
+
+**Problema:** reiniciar el servicio de haproxy 
+
+La imagen de centos en la cual se instalo haproxy, no contenia las directivas para el manejo de servicios (service o systemctl).
+Sin embargo, siempre se puede gestionar los servicios de forma directa. En el caso de haproxy, el comando que permite iniciar o reiniciar
+el servicio es el siguiente:
+```bash
+/usr/sbin/haproxy -f /etc/haproxy/haproxy.cfg -D -p /var/run/haproxy.pid
+```
+
+
