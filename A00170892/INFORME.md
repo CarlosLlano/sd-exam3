@@ -215,11 +215,6 @@ docker-compose up -d
 
 Archivo haproxy.cfg
 
-´´´bash
-docker exec -it balanceador /bin/bash
-cat haproxy.cfg
-´´´
-
 ![evidencia4](https://user-images.githubusercontent.com/17281733/33510714-a4b277ac-d6dd-11e7-8176-4628ce501797.png)
 
 
@@ -252,12 +247,6 @@ docker-compose scale web=5
 
 ![ezgif com-optimize](https://user-images.githubusercontent.com/17281733/33510901-216f99d0-d6e0-11e7-88cf-4b70a6fdd0a9.gif)
 
-
-```bash
-docker-compose scale web=2
-```
-
-![final](https://user-images.githubusercontent.com/17281733/33511016-edcbf446-d6e1-11e7-9675-8f1043fc1c41.gif)
 
 ___
 
